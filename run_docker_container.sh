@@ -7,4 +7,6 @@ TAG=bandit-jam-bot:$EPOCH_TIME
 
 docker build -t $TAG .
 
-docker run -ti $TAG bash
+# Run the docker container but mount this directory as the working directory. This enables
+# development locally with testing in Docker.
+docker run -ti $TAG -v $PWD:/bandit/ bash
