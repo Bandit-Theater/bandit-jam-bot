@@ -1,0 +1,8 @@
+# Ignore git things
+.git
+
+# Ignore NodeJS stuff we're not using at runtime
+package-lock.json
+
+# Ignore development tools
+run_docker_container.sh
