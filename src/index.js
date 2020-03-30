@@ -1,9 +1,7 @@
-const config = require('./config.json');
+const config = require('../config.json');
 const Discord = require('discord.js');
 
 const bot = new Discord.Client();
-
-let voiceChannelConnection;
 
 const SOUNDS = {
   't': 'sfx/bell.wav',
@@ -11,10 +9,15 @@ const SOUNDS = {
   'b': 'sfx/coocoo.wav',
 };
 
+const VOICE_CHANNEL = 'The Reader';
+const TEXT_CHANNEL = 'the-reader';
+
+let voiceChannelConnection;
+
 function getBatChannel() {
   return bot.channels
             .cache.array()
-            .filter(channel => channel.type === 'voice' && channel.name === 'The BAT')[0];
+            .filter(channel => channel.type === 'voice' && channel.name === VOICE_CHANNEL)[0];
 }
 
 async function connectToBatChannel() {
@@ -35,7 +38,7 @@ async function readyHandler() {
 bot.on('ready', readyHandler);
 
 bot.on('message', (message) => {
-  if (message.channel.name !== 'the-bat') {
+  if (message.channel.name !== TEXT_CHANNEL) {
     return;
   }
 
