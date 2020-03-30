@@ -1,8 +1,9 @@
 # Ignore git things
 .git
 
-# Ignore NodeJS stuff we're not using at runtime
-package-lock.json
+# Do not copy over node_modules as the local build may not be valid. We will `npm build` while
+# constructing the docker image
+node_modules/
 
 # Ignore development tools
 run_docker_container.sh
