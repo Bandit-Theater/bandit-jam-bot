@@ -9,43 +9,46 @@ const SOUNDS = {
   'b': 'sfx/coocoo.wav',
 };
 
-const VOICE_CHANNEL = 'The Reader';
-const TEXT_CHANNEL = 'the-reader';
+const TEXT_TO_VOICE_CHANNEL = {
+  'the-reader': 'The Reader',
+  'swipe-right': 'Swipe Right',
+  'the-awkward-show': 'The Awkward Show',
+  'the-bat': 'The BAT',
+};
 
-let voiceChannelConnection;
+let activeVoiceConnection;
 
-function getBatChannel() {
+async function connectToVoiceChannel(channelName) {
   return bot.channels
-            .cache.array()
-            .filter(channel => channel.type === 'voice' && channel.name === VOICE_CHANNEL)[0];
-}
-
-async function connectToBatChannel() {
-  return getBatChannel().join();
+          .cache.array()
+          .filter(channel => channel.type === 'voice' && channel.name === channelName)[0]
+          .join();
 }
 
 async function playSound(pathToSound) {
-  const dispatcher = voiceChannelConnection.play(pathToSound);
+  const dispatcher = activeVoiceConnection.play(pathToSound);
   dispatcher.on('start', () => { console.log(`Starting ${pathToSound}`); });
   dispatcher.on('finish', () => { console.log(`Completed ${pathToSound}`); });
   dispatcher.on('error', console.error);
 }
 
-async function readyHandler() {
+bot.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}`);
-  voiceChannelConnection = await connectToBatChannel();
-}
-bot.on('ready', readyHandler);
+});
 
-bot.on('message', (message) => {
-  if (message.channel.name !== TEXT_CHANNEL) {
+async function messageHandler(message) {
+  const sound = SOUNDS[message.content];
+  if (!sound) {
     return;
   }
 
-  let sound = SOUNDS[message.content];
-  if (sound) {
-    playSound(sound);
+  const voiceChannel = TEXT_TO_VOICE_CHANNEL[message.channel.name];
+  if (!activeVoiceConnection || voiceChannel != activeVoiceConnection.channel.name) {
+    activeVoiceConnection = await connectToVoiceChannel(voiceChannel);
   }
-});
+
+  playSound(sound);
+}
+bot.on('message', messageHandler);
 
 bot.login(config.token);
