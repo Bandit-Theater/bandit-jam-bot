@@ -13,4 +13,4 @@ WORKDIR /bandit/
 RUN npm install
 
 # Add our source to the working directory
-ADD ./* ./
+ADD ./ ./
