@@ -21,9 +21,9 @@ let activeVoiceConnection;
 
 async function connectToVoiceChannel(channelName) {
   return bot.channels
-          .cache.array()
-          .filter(channel => channel.type === 'voice' && channel.name === channelName)[0]
-          .join();
+            .cache.array()
+            .filter(channel => channel.type === 'voice' && channel.name === channelName)[0]
+            .join();
 }
 
 async function playSound(pathToSound) {
