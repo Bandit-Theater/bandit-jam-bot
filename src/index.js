@@ -14,6 +14,7 @@ const TEXT_TO_VOICE_CHANNEL = {
   'swipe-right': 'Swipe Right',
   'the-awkward-show': 'The Awkward Show',
   'the-bat': 'The BAT',
+  'bandit-jam': 'Bandit Jam',
 };
 
 let activeVoiceConnection;
