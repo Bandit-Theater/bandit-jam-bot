@@ -7,6 +7,7 @@ const SOUNDS = {
   't': 'sfx/bell.wav',
   'e': 'sfx/wind.wav',
   'b': 'sfx/coocoo.wav',
+  'tt': 'sfx/double_bell.wav'
 };
 
 const TEXT_TO_VOICE_CHANNEL = {
