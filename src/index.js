@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 const SOUNDS = {
   't': 'sfx/bell.wav',
   'e': 'sfx/wind.wav',
+  's': 'sfx/wind.wav',
   'b': 'sfx/coocoo.wav',
   'tt': 'sfx/double_bell.wav'
 };
