@@ -17,6 +17,9 @@ const TEXT_TO_VOICE_CHANNEL = {
   'the-awkward-show': 'The Awkward Show',
   'the-bat': 'The BAT',
   'bandit-jam': 'Bandit Jam',
+  'untitled-new-show': 'Untitled New Show',
+  'bot-development': 'Bot Development',
+  'the-ocean': 'The Ocean',
 };
 
 let activeVoiceConnection;
