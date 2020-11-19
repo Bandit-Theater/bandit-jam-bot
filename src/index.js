@@ -1,11 +1,12 @@
 const config = require('../config.json');
 const Discord = require('discord.js');
 
-const bot = new Discord.Client();
+const bot = new Discord.Client({ autoReconnect: true });
 
 const SOUNDS = {
   't': 'sfx/bell.wav',
   'e': 'sfx/wind.wav',
+  's': 'sfx/wind.wav',
   'b': 'sfx/coocoo.wav',
   'tt': 'sfx/double_bell.wav'
 };
@@ -16,6 +17,9 @@ const TEXT_TO_VOICE_CHANNEL = {
   'the-awkward-show': 'The Awkward Show',
   'the-bat': 'The BAT',
   'bandit-jam': 'Bandit Jam',
+  'untitled-new-show': 'Untitled New Show',
+  'bot-development': 'Bot Development',
+  'the-ocean': 'The Ocean',
 };
 
 let activeVoiceConnection;
@@ -39,7 +43,9 @@ bot.on('ready', () => {
 });
 
 async function messageHandler(message) {
-  const sound = SOUNDS[message.content];
+  const content = message.content.toLowerCase();
+
+  const sound = SOUNDS[content];
   if (!sound) {
     return;
   }
