@@ -1,7 +1,7 @@
 const config = require('../config.json');
 const Discord = require('discord.js');
 
-const bot = new Discord.Client();
+const bot = new Discord.Client({ autoReconnect: true });
 
 const SOUNDS = {
   't': 'sfx/bell.wav',
