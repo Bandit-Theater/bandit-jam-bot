@@ -43,7 +43,9 @@ bot.on('ready', () => {
 });
 
 async function messageHandler(message) {
-  const sound = SOUNDS[message.content];
+  const content = message.content.toLowerCase();
+
+  const sound = SOUNDS[content];
   if (!sound) {
     return;
   }
