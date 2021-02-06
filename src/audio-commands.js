@@ -14,7 +14,12 @@ const SOUNDS = {
   'tt': 'sfx/double_bell.wav',
   'e': 'sfx/wind.wav',
   's': 'sfx/wind.wav',
-  'b': 'sfx/coocoo.wav'
+  'b': 'sfx/coocoo.wav',
+  'w': {
+    'steps': 'sfx/footsteps.wav',
+    'phone': 'sfx/retro_phone.wav',
+    'knock': 'sfx/knock.wav',
+  }
 }
 
 let activeVoiceConnection;
@@ -37,8 +42,28 @@ async function playSound(pathToSound) {
   dispatcher.on('error', logError);
 }
 
+/**
+ * Given an array of string paths like ['w', 'knock'], returns the sound
+ * file name by looking up in the sound map.
+ */
+function getSoundFromPath(path, soundmap = SOUNDS) {
+  if (path.length === 0) {
+    return null; // If we ran out of path parts, don't play a sound here
+  }
+  const entry = soundmap[path[0]];
+
+  if (typeof entry === 'string') {
+    // This is a valid sound, return it even if there are more parts in the path
+    return entry;
+  } else if (typeof entry === 'object') {
+    // There are possibly more sound options down this path
+    return getSoundFromPath(path.slice(1), entry);
+  }
+}
+
 exports.handleMessage = async function(bot, message) {
-  const sound = SOUNDS[message.content.toLowerCase()];
+  const cmd = message.content.toLowerCase();
+  const sound = getSoundFromPath(cmd.split(' '));
 
   if (!sound) {
     return;
@@ -50,4 +75,8 @@ exports.handleMessage = async function(bot, message) {
   }
 
   playSound(sound);
+}
+
+exports.getSupportedWalkOnSounds = function() {
+  return Object.keys(SOUNDS['w']).join(', ');
 }

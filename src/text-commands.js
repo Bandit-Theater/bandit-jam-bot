@@ -1,4 +1,5 @@
 const DICTIONARY = require('./dictionary.json');
+const audio = require('./audio-commands.js');
 
 BOT_INSTRUCTIONS = `
 \:wave: Hi! I'm a bot that plays sound effects for your scene edits! \:robot:
@@ -11,6 +12,7 @@ Here's the commands I know:
   - **e**: edit
   - **s**: swipe (the same as **e**)
   - **b**: blackout
+  - **w**: walk on (with sounds: ${audio.getSupportedWalkOnSounds()}, e.g. w knock)
 
 I can also provide suggestions, just type **suggie**.
 
