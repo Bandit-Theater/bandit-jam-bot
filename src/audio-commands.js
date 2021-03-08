@@ -23,7 +23,7 @@ const SOUNDS = {
   }
 }
 
-// Discord.jd VoiceChannel.join() returns a Promise that doesn't resolve until its child
+// Discord.js VoiceChannel.join() returns a Promise that doesn't resolve until its child
 // VoiceConnection emits a `ready` event. That ready event seems a bit early, though? If a sound
 // is played *immediately* after ready is emitted, the sound may be played at a low volume or
 // simply not at all. A brief buffer period seems to resolve the issue, though it's a bit inelegant.
