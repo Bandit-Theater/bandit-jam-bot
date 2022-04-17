@@ -16,7 +16,7 @@ Here's the commands I know:
 
 I can also provide suggestions, just type **suggie**.
 
-If it looks like I've gone to sleep, type **u up** and I'll check in with you.
+If it looks like I've gone to sleep, type **u up** and I'll check in with you. If that doesn't work you can try rebooting me with **reboot jambot**.
 
 If you'd like to help contribute new features, check out <https://github.com/Bandit-Theater/bandit-jam-bot> \:tada:
 `;

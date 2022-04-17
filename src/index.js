@@ -3,21 +3,47 @@ const config = require('../config.json');
 const Discord = require('discord.js');
 const TextCommands = require('./text-commands');
 
-const bot = new Discord.Client({ autoReconnect: true });
+let rebootResponseChannel;
 
 async function logError(error) {
   console.error(error);
 }
-bot.on('error', logError);
 
-bot.on('ready', () => {
+async function logReady(bot) {
+  if (rebootResponseChannel) {
+    await bot.channels.cache.get(rebootResponseChannel).send("... done. Ready to go!");
+    rebootResponseChannel = undefined;
+    return;
+  }
+
   console.log(`Logged in as ${bot.user.tag}`);
-});
+}
 
-async function messageHandler(message) {
+async function messageHandler(bot, message) {
+  if (message.content.toLowerCase() === 'reboot jambot') {
+    await message.channel.send("Okay! Rebooting...");
+    rebootResponseChannel = message.channel.id;
+
+    AudioCommands.clearActiveVoiceConnection();
+    bot.destroy();
+    bot = createBot();
+    return;
+  }
+
   TextCommands.handleMessage(bot, message);
   AudioCommands.handleMessage(bot, message);
 }
-bot.on('message', messageHandler);
 
-bot.login(config.token);
+function createBot() {
+  const bot = new Discord.Client({ autoReconnect: true });
+
+  bot.on('error', logError);
+  bot.on('ready', () => { logReady(bot); });
+  bot.on('message', (message) => { messageHandler(bot, message); });
+
+  bot.login(config.token);
+
+  return bot;
+}
+
+const jambot = createBot();
