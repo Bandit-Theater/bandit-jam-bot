@@ -1,4 +1,5 @@
 const AudioCommands = require('./audio-commands');
+const BreakoutCommands = require('./breakout-commands');
 const config = require('../config.json');
 const Discord = require('discord.js');
 const TextCommands = require('./text-commands');
@@ -30,8 +31,13 @@ async function messageHandler(bot, message) {
     return;
   }
 
-  TextCommands.handleMessage(bot, message);
-  AudioCommands.handleMessage(bot, message);
+  try {
+    BreakoutCommands.handleMessage(bot, message);
+    TextCommands.handleMessage(bot, message);
+    AudioCommands.handleMessage(bot, message);
+  } catch {
+    await message.channel.send('Oops. Encountered an error. Email kevin@bandittheater.org letting Kevin know this happened.');
+  }
 }
 
 function createBot() {

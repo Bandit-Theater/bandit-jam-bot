@@ -18,6 +18,8 @@ I can also provide suggestions, just type **suggie**.
 
 If it looks like I've gone to sleep, type **u up** and I'll check in with you. If that doesn't work you can try rebooting me with **reboot jambot**.
 
+I can also manage breakout rooms for you. Try **breakout help** for more info. (This feature is experimental and limited to Bandit Staff for now.)
+
 If you'd like to help contribute new features, check out <https://github.com/Bandit-Theater/bandit-jam-bot> \:tada:
 `;
 
